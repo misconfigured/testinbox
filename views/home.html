@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Inbox</title>
+    <link href="/public/tailwind.min.css" rel="stylesheet">
+    <link href="/public/styles.css" rel="stylesheet"> 
+    <script src="/public/suggestion.js"></script>
+    <script src="/public/websocket.js"></script>
+    <meta name="viewport" content="width=device-width">        
+</head>
+<body class="bg-gray-100">
+    <div class="text-center mt-6">
+        <img src="/public/logo.svg" alt="Logo" class="mx-auto" style="max-width: 200px;">
+    </div>
+    <div class="mt-8 text-center">
+        <form action="/inbox" method="get" class="search-bar">
+            <input type="text" name="recipient" id="searchRecipient" placeholder="Enter recipient to filter..." class="search-input p-2 rounded border border-gray-300" autocomplete="off">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Search
+            </button>
+            <div id="suggestionsBox" class="absolute bg-white border mt-1 w-full"></div>
+        </form>
+    </div>
+    <div class="container mx-auto mt-4">
+        <h2 class="text-xl font-bold my-4">Recent Emails</h2>
+        <div id="emailList" class="email-list">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            To
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            From
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Subject
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Received At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {{range .Emails}}
+                    <tr onclick="window.location='/inbox/{{.ID}}';" style="cursor:pointer;">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{.Recipient}}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{.Sender}}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{.Subject}}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">{{.ReceivedAt}}</div>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

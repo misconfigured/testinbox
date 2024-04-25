@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Details</title>
+    <link href="/public/tailwind.min.css" rel="stylesheet">
+    <link href="/public/styles.css" rel="stylesheet">
+    <script src="/public/goback.js" defer></script>
+    <script src="/public/navbar.js" defer></script>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body class="bg-gray-100">
+    <div class="text-center mt-6">
+        <button onclick="goBack()" class="btn-back" aria-label="Back">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <img src="/public/logo.svg" alt="Logo" class="mx-auto" style="max-width: 200px;">
+    </div>
+    <div class="container mx-auto mt-4">
+        <div class="flex items-center mb-4">
+            <button onclick="toggleDetails()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2">
+                Details
+            </button>
+            
+            {{ $contentType := .Email.ContentType }}
+            <span class="label {{if eq $contentType "HTML"}}bg-green-500{{else if eq $contentType "Text"}}bg-blue-500{{else}}bg-red-500{{end}} px-4 py-1 rounded-full text-white">
+                {{ $contentType }}
+            </span>
+        </div>
+
+        <table class="table-auto w-full mb-4">
+            <tbody>
+                <tr><th>From</th><td>{{.Email.Sender}}</td></tr>
+                <tr><th>To</th><td>{{.Email.Recipient}}</td></tr>
+                <tr><th>Subject</th><td>{{.Email.Subject}}</td></tr>
+                <tr><th>Received At</th><td>{{.Email.ReceivedAt}}</td></tr>
+            </tbody>
+        </table>
+
+        <div id="emailDetails" style="display: none;" class="mb-4">
+            <table class="table-auto w-full mb-4">
+                <tr>
+                    <th>Header</th>
+                    <td>{{ .Email.Headers }}</td>
+                </tr>
+                <tr>
+                    <th>Sender IP</th>
+                    <td>{{ .Email.SenderIP }}</td>
+                </tr>
+                <tr>
+                    <th>SPF</th>
+                    <td>{{ .Email.SPF }}</td>
+                </tr>
+                <tr>
+                    <th>DKIM</th>
+                    <td>{{ .Email.DKIM }}</td>
+                </tr>
+            </table>
+        </div>        
+
+        <div class="email-content">
+            {{if .Email.BodyHTML}}
+                <div class="p-4" style="border: 1px solid #ccc;">{{.Email.BodyHTML}}</div>
+            {{else}}
+                <pre class="p-4" style="border: 1px solid #ccc;">{{.Email.BodyText}}</pre>
+            {{end}}
+        </div>
+    </div>
+</body>
+</html>

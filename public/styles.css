@@ -1,0 +1,76 @@
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+#logo {
+    height: 50px;
+    margin-right: 20px;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.header img {
+    height: 50px;
+    margin: 0 auto;
+}
+.btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.btn-back svg {
+    fill: #333;
+    height: 24px;
+    width: 24px;
+}
+.search-bar {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+}
+.search-input {
+    flex-grow: 1;
+    border: 2px solid #ddd;
+    outline: none;
+}
+#suggestionsBox {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 5;
+}
+.suggestion {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.suggestion:hover, .suggestion-active {
+    background-color: #f9f9f9;
+}
+.total-emails-count {
+    font-size: 1.25em;
+    color: #333;
+    margin-bottom: 1rem;
+}

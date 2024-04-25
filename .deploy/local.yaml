@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testinbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testinbox
+  template:
+    metadata:
+      labels:
+        app: testinbox
+    spec:
+      containers:
+      - name: testinbox
+        image: testinbox:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: testinbox
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: testinbox
